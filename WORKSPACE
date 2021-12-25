@@ -101,3 +101,13 @@ git_repository(
 
 load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
 boost_deps()
+
+#
+# CC library: fmtlib
+# 
+
+new_local_repository(
+  name = "com_github_fmtlib_fmt",
+  path = "third_party/libfmt",
+  build_file = "third_party/libfmt/BUILD",
+)
