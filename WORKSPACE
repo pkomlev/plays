@@ -4,7 +4,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 #
-# Bazel configurables.
+# Bazel packages -- C++ foreign.
 # 
 
 http_archive(
@@ -21,7 +21,30 @@ load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_depende
 rules_foreign_cc_dependencies()
 
 #
-# Boost
+# Bazel packages -- .NET.
+# 
+
+git_repository(
+    name = "io_bazel_rules_dotnet",
+    remote = "https://github.com/bazelbuild/rules_dotnet",
+    commit = "02d7f4fbfa05ce2a8651a29dba7be997555e3642", 
+    shallow_since = "1639043023 +0000",
+)
+
+load("@io_bazel_rules_dotnet//dotnet:deps.bzl", "dotnet_repositories")
+dotnet_repositories()
+
+load(
+    "@io_bazel_rules_dotnet//dotnet:defs.bzl",
+    "dotnet_register_toolchains",
+    "dotnet_repositories_nugets",
+)
+
+dotnet_register_toolchains()
+dotnet_repositories_nugets()
+
+#
+# CC library: Boost
 # 
 
 git_repository(
@@ -35,7 +58,7 @@ load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
 boost_deps()
 
 #
-# Bazel native libraries.
+# CC library: Abseil
 # 
 
 local_repository(
