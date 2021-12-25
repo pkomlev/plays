@@ -4,7 +4,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 #
-# Bazel configurables.
+# Bazel packages -- C++ foreign.
 # 
 
 http_archive(
@@ -21,7 +21,48 @@ load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_depende
 rules_foreign_cc_dependencies()
 
 #
-# Boost
+# Bazel packages -- .NET.
+# 
+
+git_repository(
+    name = "io_bazel_rules_dotnet",
+    remote = "https://github.com/bazelbuild/rules_dotnet",
+    commit = "02d7f4fbfa05ce2a8651a29dba7be997555e3642", 
+    shallow_since = "1639043023 +0000",
+)
+
+load("@io_bazel_rules_dotnet//dotnet:deps.bzl", "dotnet_repositories")
+dotnet_repositories()
+
+load(
+    "@io_bazel_rules_dotnet//dotnet:defs.bzl",
+    "dotnet_register_toolchains",
+    "dotnet_repositories_nugets",
+)
+
+dotnet_register_toolchains()
+dotnet_repositories_nugets()
+
+#
+# Proto
+# 
+
+http_archive(
+    name = "rules_proto",
+    sha256 = "66bfdf8782796239d3875d37e7de19b1d94301e8972b3cbd2446b332429b4df1",
+    strip_prefix = "rules_proto-4.0.0",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/refs/tags/4.0.0.tar.gz",
+        "https://github.com/bazelbuild/rules_proto/archive/refs/tags/4.0.0.tar.gz",
+    ],
+)
+
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
+rules_proto_dependencies()
+rules_proto_toolchains()
+
+#
+# CC library: Boost
 # 
 
 git_repository(
@@ -35,10 +76,11 @@ load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
 boost_deps()
 
 #
-# Bazel native libraries.
+# CC library: Abseil
 # 
 
 local_repository(
   name = "com_google_absl",
   path = "third_party/abseil-cpp",
 )
+

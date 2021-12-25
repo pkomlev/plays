@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package proto_example;
+
+message Person {
+  optional string name = 1;
+  optional int32 age = 2;
+  repeated string friends = 3;
+}

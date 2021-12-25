@@ -1,5 +1,5 @@
 cc_binary(
-    name = "example",
+    name = "example_cpp",
     srcs = ["example.cpp"],
     deps = [
         "@boost//:algorithm",
