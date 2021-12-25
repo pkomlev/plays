@@ -5,5 +5,6 @@ cc_binary(
         "@boost//:algorithm",
         "@boost//:core",
         "@com_google_absl//absl/strings",
+        "@com_github_fmtlib_fmt//:fmt",
     ],
 )
