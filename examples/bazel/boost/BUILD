@@ -4,5 +4,6 @@ cc_binary(
     deps = [
         "@boost//:algorithm",
         "@boost//:core",
+        "@com_google_absl//absl/strings",
     ],
 )
