@@ -1,6 +1,6 @@
-#include <boost/core/noncopyable.hpp>
-
 #include <iostream>
+
+#include <boost/core/noncopyable.hpp>
 
 class Example : boost::noncopyable
 {
