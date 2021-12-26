@@ -119,15 +119,15 @@ grpc_extra_deps()
 # CC library: Boost
 # 
 
-git_repository(
-    name = "com_github_nelhage_rules_boost",
-    commit = "fce83babe3f6287bccb45d2df013a309fa3194b8",
-    remote = "https://github.com/nelhage/rules_boost",
-    shallow_since = "1591047380 -0700",
+http_archive(
+    name = "boost",
+    sha256 = "94ced8b72956591c4775ae2207a9763d3600b30d9d7446562c552f0a14a63be7",
+    strip_prefix = "boost_1_78_0",
+    urls = [
+        "https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.gz"
+    ],
+    build_file_content = """filegroup(name = "all", srcs = glob(["**"]), visibility = ["//visibility:public"])""",
 )
-
-load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
-boost_deps()
 
 #
 # CC library: fmtlib
